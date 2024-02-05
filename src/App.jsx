@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState } from 'react' //hook
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './App.css'
 import Card from './components/Card'
-
+import CardForm from './components/CardForm'
+import Example from './components/Example'
+/*
 function handleClick() {
 	alert("ciao");
 }
@@ -16,10 +18,24 @@ function handleSubmit(e) {
 	console.log("Submit");
 	e.preventDefault();
 }
-
+*/
 function App() {
 	const [count, setCount] = useState(0);
-	const cities = [
+	const [items, setItems] = useState([1,2,3]);
+	//const [user, setUser] = useState({name: "Alice", age:30});
+
+	const aggiungiItem = () => {
+		const nuovoItem = 4;
+		setItems([...items, nuovoItem]);
+		console.log(items);
+	};
+/*
+	const updateUserName = () => {
+		const updatedUser = {...user, name:"Bob"};
+		setUser(updatedUser);
+	}
+*/
+	const [cities, setCities] = useState([
 		{
 			seen: true,
 			name: "Tokyo",
@@ -44,7 +60,7 @@ function App() {
 			pic: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 			decription: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, tempora?",
 		},
-		{
+		/*{
 			seen: false,
 			name: "Kyoto",
 			pic: "https://images.unsplash.com/photo-1578469645742-46cae010e5d4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -91,33 +107,17 @@ function App() {
 			name: "Agra",
 			pic: "https://plus.unsplash.com/premium_photo-1661885523029-fc960a2bb4f3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 			decription: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, dolore?",
-		},
-	];
+		},*/
+	]);
+
+	const AddCity = (city) => {setCities([...cities, city])};
 
 	return (
 		<>
-			<div className=' grid grid-cols-4 gap-10'>
-				{/*<Card
-					isVisited={true}
-					title="Tokyo"
-					imgURL="https://images.unsplash.com/photo-1571625109522-4327b4a10154?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-				>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit, molestias!</Card>
-				<Card
-					isVisited={false}
-					title="NewYork"
-					imgURL="https://images.unsplash.com/photo-1556807044-eaf2e0eecb6d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-				>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, qui.</Card>
-				<Card
-					isVisited={true}
-					title="Rome"
-					imgURL="https://images.unsplash.com/photo-1531572753322-ad063cecc140?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-				>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, ex.</Card>
-				<Card
-					isVisited={false}
-					title="Paris"
-					imgURL="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-				>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, excepturi.</Card>*/}
-				{cities/*.filter(x => !x.seen)*/.map((x) => (
+		<Example></Example>
+			<CardForm addCity = {AddCity}></CardForm>
+			<div className='grid grid-cols-4 gap-10'>
+				{cities.map((x) => (
 					<Card
 						key={cities.indexOf(x)}
 						isVisited={x.seen}
@@ -126,33 +126,14 @@ function App() {
 					>{x.decription}</Card>
 				))}
 			</div>
-			{/*<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>*/}
-			<div className="card">
+			{/*<div className="card">
 				<button onClick={() => setCount((count) => count + 1)}>
 					count is {count}
 				</button>
-				<button onClick={/*() => alert("ciao")*/handleClick}>
-					alert
+				<button onClick={aggiungiItem}>
+					items is {items}
 				</button>
-				<input onChange={handleChange}/>
-				<form onSubmit={handleSubmit}>
-					<button type='Submit'>Submit</button>
-				</form>
-				{/*<p>
-          			Edit <code>src/App.jsx</code> and save to test HMR
-        		</p>*/}
-			</div>
-			{/*<p className="read-the-docs">
-        		Click on the Vite and React logos to learn more
-      		</p>*/}
+			</div>*/}
 		</>
 	)
 }
